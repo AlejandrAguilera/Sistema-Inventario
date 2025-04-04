@@ -16,17 +16,17 @@
 3. **Instalar las dependencias del proyecto**:
    ```bash
    pip install -r requirements.txt
-5. **Configurar la conexión a la base de datos**: Crea un archivo config.py con el siguiente contenido:
+4. **Configurar la conexión a la base de datos**: Crea un archivo config.py con el siguiente contenido:
    ```bash
    MYSQL_HOST = 'localhost'
    MYSQL_USER = 'root'
    MYSQL_PASSWORD = 'tu_contraseña'
    MYSQL_DB = 'inventario'
    SECRET_KEY = 'clave_secreta_segura'
-7. **Ejecutar la aplicación en modo desarrollo**:
+5. **Ejecutar la aplicación en modo desarrollo**:
    ```bash
    flask run
-8. **Acceder a la app desde el navegador**:
+6. **Acceder a la app desde el navegador**:
    ```bash
    http://localhost:5000
 
