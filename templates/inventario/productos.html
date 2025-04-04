@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Productos{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Lista de Productos</h1>
+<a href="{{ url_for('inventario.agregar_producto') }}" class="btn btn-success mb-3">Agregar Producto</a>
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Estatus</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.id }}</td>
+            <td>{{ producto.nombre }}</td>
+            <td>
+                {% if current_user.rol == 'admin' %}
+                <form method="POST" action="{{ url_for('inventario.movimiento', tipo='entrada', producto_id=producto.id) }}" style="display:inline;">
+                    <input type="hidden" name="cantidad" value="1">
+                    <button type="submit" class="btn btn-primary btn-sm" {% if producto.estatus == 'Inactivo' %}disabled{% endif %}>➕</button>
+                </form>
+                {% endif %}
+                {{ producto.cantidad }}
+                {% if current_user.rol == 'almacenista' %}
+                <form method="POST" action="{{ url_for('inventario.movimiento', tipo='salida', producto_id=producto.id) }}" style="display:inline;">
+                    <input type="hidden" name="cantidad" value="1">
+                    <button type="submit" class="btn btn-warning btn-sm" {% if producto.estatus == 'Inactivo' %}disabled{% endif %}>➖</button>
+                </form>
+                {% endif %}
+            </td>
+            <td>
+                <form method="POST" action="{{ url_for('inventario.cambiar_estatus', producto_id=producto.id) }}" style="display:inline;">
+                    <button type="submit" class="btn {% if producto.estatus == 'Activo' %}btn-success{% else %}btn-secondary{% endif %} btn-sm">
+                        {% if producto.estatus == 'Activo' %}
+                            Activo
+                        {% else %}
+                            Inactivo
+                        {% endif %}
+                    </button>
+                </form>
+            </td>
+            <td>
+                {% if current_user.rol == 'admin' %}
+                <form method="POST" action="{{ url_for('inventario.eliminar_producto', producto_id=producto.id) }}" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
