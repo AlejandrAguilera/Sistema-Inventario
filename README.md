@@ -22,7 +22,7 @@
    MYSQL_USER = 'root'
    MYSQL_PASSWORD = 'tu_contraseña'
    MYSQL_DB = 'inventario'
-  SECRET_KEY = 'clave_secreta_segura'
+   SECRET_KEY = 'clave_secreta_segura'
 7. **Ejecutar la aplicación en modo desarrollo**:
    ```bash
    flask run
